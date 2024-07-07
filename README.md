@@ -6,18 +6,22 @@ This test rom requires the following opcodes:
 - All opcodes from the IBM-Logo test rom
 - a semi-functional `FX0A` opcode (just pause execution until a key is released if you don't have this opcode implemented)
 
-Checkmark definitions:
+## Definitions:
 
-## 7XNN Test:
+✅ - Pass / Enabled
+❌ - Fail
+➖ - Disabled / Skipped
+
+### 7XNN Test:
 1 - Does the proper function   
 2 - Is masked with 0xFF (or already wraps around when overflowed)
 
-## 8XY0, 8XY1, 8XY2 Tests:
+### 8XY0, 8XY1, 8XY2 Tests:
 1 - Does the proper function   
 2 - Quirk is enabled   
 3 - vF is set in the proper order
 
-## 8XY4, 8XY5, 8XY7 Tests:
+### 8XY4, 8XY5, 8XY7 Tests:
 1 - Does the proper function   
 2 - Sets vF correctly on no overflow   
 3 - Masks vX properly on overflow   
@@ -25,7 +29,7 @@ Checkmark definitions:
 5 - vF works as vX on no overflow   
 6 - vF works as vX on overflow
 
-## 8XY6, 8XYE Tests:
+### 8XY6, 8XYE Tests:
 1 - Does the proper function   
 2 - Quirk is enabled   
 3 - vY stays unchanged   
