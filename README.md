@@ -8,8 +8,8 @@ This test rom requires the following opcodes:
 
 ## Definitions:
 
-✅ - Pass / Enabled
-❌ - Fail
+✅ - Pass / Enabled   
+❌ - Fail   
 ➖ - Disabled / Skipped
 
 ### 7XNN Test:
