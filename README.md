@@ -37,7 +37,6 @@ This test rom requires the following opcodes:
 5 - vF can be used as vY (will show as - if quirk is enabled)   
 6 - vF can be used as vX
 
-## FX1E Tests: (Requires 55/65 to work properly)
+### FX1E Tests: (Requires 55/65 to work properly)
 1 - Does the proper function
 2 - Doesn't change vF
-3 - I is masked, or atleast handled as a u16 (Will fail in megachip)
