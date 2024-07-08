@@ -72,6 +72,10 @@ Misc Tests Include:
 5 - vF can be used as vY (will show as - if quirk is enabled)   
 6 - vF can be used as vX
 
+### 8XYE Specific Tests:
+7 - Masks vX properly on overflow   
+8 - No overflow mask hack on vX (Bit 7 gets cut off properly)
+
 ### FX55 / FX65 Tests:
 1 - Does the proper function   
 2 - Quirk is enabled for FX55
