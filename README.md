@@ -37,6 +37,11 @@ This test rom requires the following opcodes:
 5 - vF can be used as vY (will show as - if quirk is enabled)   
 6 - vF can be used as vX
 
+### FX55 / FX65 Tests:
+1 - Does the proper function   
+2 - Quirk is enabled for FX55
+3 - Quirk is enabled for FX65
+
 ### FX1E Tests: (Requires 55/65 to work properly)
 1 - Does the proper function
 2 - Doesn't change vF
