@@ -10,7 +10,7 @@ This test rom requires the following opcodes:
 
 ✅ - Pass / Enabled   
 ❌ - Fail   
-➖ - Disabled / Skipped
+➖ - Quirk is Disabled / Skipped Test / Failed VIP Check (Unimportant)
 
 ### 7XNN Test:
 1 - Does the proper function   
