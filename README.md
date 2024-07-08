@@ -8,9 +8,11 @@ This test rom requires the following opcodes:
 
 ## Definitions:
 
-✅ - Pass / Enabled   
+✅ - Pass / Quirk is Enabled   
 ❌ - Fail   
-➖ - Quirk is Disabled / Skipped Test / Failed VIP Check (Unimportant)
+➖ - Quirk is Disabled / Skipped Test
+
+"➖" also appears if you don't pass the VIP test; however, the only reason to worry about passing the VIP test is if you're making a Cosmac VIP Emulator.
 
 ### 7XNN Test:
 1 - Does the proper function   
