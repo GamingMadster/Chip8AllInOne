@@ -1,0 +1,1949 @@
+: 2ncheck
+	v3 := 0
+	sprite v0 v1 3
+	return
+	jump after2ncheck
+	
+
+: main
+	v0 := 1
+	v1 := 1
+	
+	i := bC
+	sprite v0 v1 8
+	v0 += 9
+	
+	i := bH
+	sprite v0 v1 8
+	v0 += 9
+	
+	i := bI
+	sprite v0 v1 8
+	v0 += 9
+	
+	i := bP
+	sprite v0 v1 8
+	v0 += 9
+	
+	i := b8
+	sprite v0 v1 8
+	
+	v0 := 1
+	v1 := 10
+	
+	i := sA
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sL
+	sprite v0 v1 5
+	v0 += 4
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s-
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sI
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sN
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s-
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sO
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sN
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sE
+	sprite v0 v1 5
+	v0 += 4
+	
+	v0 := 1
+	v1 := 16
+	
+	i := sT
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sE
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sS
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sT
+	sprite v0 v1 5
+	v0 += 8
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sO
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sM
+	sprite v0 v1 5
+	
+	v0 := 56
+	v1 := 26
+	
+	i := ssV
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s3
+	sprite v0 v1 5
+	v0 += 4
+
+	v0 := key
+	
+	clear
+	
+	v0 := 1
+	v1 := 1
+	
+	i := sS
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sK
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sI
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sP
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sS
+	sprite v0 v1 5
+	
+	v0 := 1
+	v1 := 8
+	
+	i := s3
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sN
+	sprite v0 v1 5
+	
+	v0 := 1
+	v1 += 6
+	
+	i := s4
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sN
+	sprite v0 v1 5
+	
+	v0 := 1
+	v1 += 6
+	
+	i := s5
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s0
+	sprite v0 v1 5
+	
+	v0 := 1
+	v1 += 6
+	
+	i := s9
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s0
+	sprite v0 v1 5
+	
+	v0 := 10
+	v1 := 10
+	
+	v2 := 1
+	v3 := 1
+	
+	# 3xnn test
+	
+	i := x
+	sprite v0 v1 3
+	i := c
+	if v2 != 1 then jump after3n
+	sprite v0 v1 3
+	: after3n
+	v1 += 6
+	
+	# 4xnn test
+	
+	i := x
+	sprite v0 v1 3
+	i := c
+	if v2 == 0 then jump after4n
+	sprite v0 v1 3
+	: after4n
+	v1 += 6
+	
+	# 5xy0 test
+	
+	i := x
+	sprite v0 v1 3
+	i := c
+	if v2 != v3 then jump after50
+	sprite v0 v1 3
+	: after50
+	v1 += 6
+	
+	# 9xy0 test
+	
+	v3 := 0
+	
+	i := x
+	sprite v0 v1 3
+	i := c
+	if v2 == v3 then jump after90
+	sprite v0 v1 3
+	: after90
+	
+	v0 := key
+	
+	clear
+	
+	v0 := 1
+	v1 := 1
+	
+	i := sS
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sU
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sB
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sO
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sU
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sT
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sI
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sN
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sE
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sS
+	sprite v0 v1 5
+	
+	v0 := 1
+	v1 := 8
+	
+	i := s2
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sN
+	sprite v0 v1 5
+	v0 := 1
+	v1 += 6
+	
+	i := sE
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sE
+	sprite v0 v1 5
+	
+	v0 := 10
+	v1 := 10
+	
+	v2 := 0
+	
+	# 2nnn/00EE test
+	
+	i := x
+	sprite v0 v1 3
+	i := c
+	v3 := 1
+	:call 2ncheck
+	v2 := 1
+	: after2ncheck
+	v1 += 6
+	i := x
+	sprite v0 v1 3
+	i := c
+	if v2 == 1 then sprite v0 v1 3
+	if v3 == 1 begin
+		sprite v0 v1 3
+		v0 += 5
+		
+		v1 := 14
+		
+		i := sN
+		sprite v0 v1 5
+		v0 += 4
+		i := sO
+		sprite v0 v1 5
+		v0 += 8
+		i := s2
+		sprite v0 v1 5
+		v0 += 4
+		i := sN
+		sprite v0 v1 5
+	end
+	
+	v0 := key
+	
+	clear
+	
+	v0 := 1
+	v1 := 1
+	
+	i := sM
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sA
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sT
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sH
+	sprite v0 v1 5
+	v0 += 8
+	
+	i := sP
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sA
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sT
+	sprite v0 v1 5
+	v0 += 8
+	
+	i := s1
+	sprite v0 v1 5
+	
+	v0 := 1
+	v1 := 8
+	
+	# 7xnn test
+	
+	i := s7
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sN
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	i := x
+	sprite v0 v1 3
+	v2 := 0
+	v2 += 1
+	i := c
+	if v2 == 1 then sprite v0 v1 3
+	v0 += 4
+	
+	i := x
+	sprite v0 v1 3
+	v2 := 255
+	v2 += 1
+	i := c
+	if v2 == 0 then sprite v0 v1 3
+	
+	# 8xy0 test
+	
+	v0 := 1
+	v1 += 4
+	
+	i := s8
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s0
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	i := x
+	sprite v0 v1 3
+	v2 := 0
+	v3 := 1
+	v2 := v3
+	i := c
+	if v2 == v3 then sprite v0 v1 3
+	
+	# 8xy1 test
+	
+	v0 := 1
+	v1 += 4
+	
+	i := s8
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s1
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	i := x
+	sprite v0 v1 3
+	
+	v2 := 0
+	v3 := 1
+	vF := 1
+	
+	v2 |= v3
+	
+	v3 := 1
+	v3 := vF
+	
+	i := c
+	if v2 == 1 then sprite v0 v1 3
+	
+	# quirk test
+	
+	v0 += 8
+	
+	v1 := 20
+	
+	i := sQ
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sK
+	sprite v0 v1 5
+	v0 += 5
+	
+	v1 += 2
+	
+	i := x-
+	sprite v0 v1 3
+	
+	i := c-
+	if v3 == 0 then sprite v0 v1 3
+	
+	# order test
+	
+	v0 += 8
+	
+	v1 := 20
+	
+	i := sO
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sD
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 5
+	
+	v1 += 2
+	
+	i := x-
+	if v3 != 0 then sprite v0 v1 3
+	
+	if v3 == 0 begin
+		i := x
+		sprite v0 v1 3
+		
+		v2 := 255
+		
+		vF := 0
+		vF |= v2
+		
+		i := c
+		if vF == 0 then sprite v0 v1 3
+	end
+	
+	# 8xy2 test
+	
+	v0 := 1
+	v1 += 4
+	
+	i := s8
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s2
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	i := x
+	sprite v0 v1 3
+	
+	v2 := 255
+	v3 := 0
+	vF := 1
+	
+	v2 &= v3
+	
+	v3 := 1
+	v3 := vF
+	
+	i := c
+	if v2 == 0 then sprite v0 v1 3
+	
+	# quirk test
+	
+	v0 += 8
+	
+	v1 := 26
+	
+	i := sQ
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sK
+	sprite v0 v1 5
+	v0 += 5
+	
+	v1 += 2
+	
+	i := x-
+	sprite v0 v1 3
+	
+	i := c-
+	if v3 == 0 then sprite v0 v1 3
+	
+	# order test
+	
+	v0 += 8
+	
+	v1 := 26
+	
+	i := sO
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sD
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 5
+	
+	v1 += 2
+	
+	i := x-
+	if v3 != 0 then sprite v0 v1 3
+	
+	if v3 == 0 begin
+		i := x
+		sprite v0 v1 3
+		
+		v2 := 255
+		
+		vF := 255
+		vF &= v2
+		
+		i := c
+		if vF == 0 then sprite v0 v1 3
+	end
+	
+	v0 := key
+	
+	clear
+	
+	v0 := 1
+	v1 := 1
+	
+	i := sM
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sA
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sT
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sH
+	sprite v0 v1 5
+	v0 += 8
+	
+	i := sP
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sA
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sT
+	sprite v0 v1 5
+	v0 += 8
+	
+	i := s2
+	sprite v0 v1 5
+	
+	# 8xy3 test
+	
+	v0 := 1
+	v1 := 8
+	
+	i := s8
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s3
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	i := x
+	sprite v0 v1 3
+	
+	v2 := 0
+	v3 := 255
+	vF := 1
+	
+	v2 ^= v3
+	
+	v3 := 1
+	v3 := vF
+	
+	i := c
+	if v2 == 255 then sprite v0 v1 3
+	
+	# quirk test
+	
+	v0 += 8
+	
+	v1 := 8
+	
+	i := sQ
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sK
+	sprite v0 v1 5
+	v0 += 5
+	
+	v1 += 2
+	
+	i := x-
+	sprite v0 v1 3
+	
+	i := c-
+	if v3 == 0 then sprite v0 v1 3
+	
+	# order test
+	
+	v0 += 8
+	
+	v1 := 8
+	
+	i := sO
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sD
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 5
+	
+	v1 += 2
+	
+	i := x-
+	if v3 != 0 then sprite v0 v1 3
+	
+	if v3 == 0 begin
+		i := x
+		sprite v0 v1 3
+		
+		v2 := 0
+		
+		vF := 255
+		vF ^= v2
+		
+		i := c
+		if vF == 0 then sprite v0 v1 3
+	end
+	
+	# 8xy4 test
+	
+	v0 := 1
+	v1 += 4
+	
+	i := s8
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s4
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	i := x
+	sprite v0 v1 3
+	
+	# does the proper function
+	
+	v2 := 0
+	v3 := 1
+	
+	vF := 255
+	
+	v2 += v3
+	
+	v3 := vF
+	
+	i := c
+	if v2 == 1 then sprite v0 v1 3
+	
+	v0 += 8
+	
+	v1 := 14
+	
+	i := sF
+	sprite v0 v1 5
+	v0 += 5
+	
+	v1 += 2
+	
+	# vF is set to proper value
+	
+	i := x
+	sprite v0 v1 3
+	i := c
+	if v3 == 0 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	i := x
+	sprite v0 v1 3
+	
+	# does overflow correctly
+	
+	v2 := 1
+	v3 := 255
+	
+	vF := 255
+	v2 += v3
+	
+	v3 := 0
+	
+	v3 := vF
+	
+	i := c
+	if v2 == 0 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	# vF is set to the proper value
+	
+	i := x
+	sprite v0 v1 3
+	i := c
+	if v3 == 1 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	i := x
+	sprite v0 v1 3
+	
+	# use vF as vX, no overflow
+	
+	vF := 0
+	v3 := 1
+	
+	vF += v3
+	
+	i := c
+	if vF == 0 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	i := x
+	sprite v0 v1 3
+	
+	# use vF as vX, has overflow
+	
+	vF := 1
+	v3 := 255
+	
+	vF += v3
+	
+	i := c
+	if vF == 1 then sprite v0 v1 3
+	
+	# 8xy5 test
+	
+	v0 := 1
+	v1 += 4
+	
+	i := s8
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s5
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	i := x
+	sprite v0 v1 3
+	
+	# does the proper function
+	
+	v2 := 1
+	v3 := 1
+	
+	vF := 255
+	
+	v2 -= v3
+	
+	v3 := vF
+	
+	i := c
+	if v2 == 0 then sprite v0 v1 3
+	
+	v0 += 8
+	
+	v1 := 20
+	
+	i := sF
+	sprite v0 v1 5
+	v0 += 5
+	
+	v1 += 2
+	
+	# vF is set to proper value
+	
+	i := x
+	sprite v0 v1 3
+	i := c
+	if v3 == 1 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	i := x
+	sprite v0 v1 3
+	
+	# does underflow correctly
+	
+	v2 := 0
+	v3 := 1
+	
+	vF := 255
+	v2 -= v3
+	
+	v3 := 0
+	
+	v3 := vF
+	
+	i := c
+	if v2 == 255 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	# vF is set to the proper value
+	
+	i := x
+	sprite v0 v1 3
+	i := c
+	if v3 == 0 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	i := x
+	sprite v0 v1 3
+	
+	# use vF as vX, no underflow
+	
+	vF := 1
+	v3 := 1
+	
+	vF -= v3
+	
+	i := c
+	if vF == 1 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	i := x
+	sprite v0 v1 3
+	
+	# use vF as vX, has underflow
+	
+	vF := 0
+	v3 := 1
+	
+	vF -= v3
+	
+	i := c
+	if vF == 0 then sprite v0 v1 3
+	
+	v0 := 1
+	v1 += 4
+	
+	# 8xy6 test
+	
+	i := s8
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s6
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	i := x
+	sprite v0 v1 3
+	
+	# is v3 shifted right by one and put into v2
+	
+	v2 := 0
+	v3 := 2
+	vF := 255
+	
+	v2 >>= v3
+	
+	v4 := vF
+	
+	i := c
+	if v2 == 1 then sprite v0 v1 3
+	
+	v0 += 8
+	
+	v1 := 26
+	
+	i := sQ
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sK
+	sprite v0 v1 5
+	v0 += 5
+	
+	v1 += 2
+	
+	i := x-
+	sprite v0 v1 3
+	
+	# quirk check
+	if v2 == 0 begin
+		i := c-
+		sprite v0 v1 3
+	
+		v2 := 2
+		v3 := 2
+		v2 >>= v3
+		
+		v4 := vF
+		
+		v0 += 235
+		
+		i := c
+		if v2 == 1 then sprite v0 v1 3
+		
+		v0 += 21
+	end
+	
+	v0 += 8
+	
+	v1 := 26
+	
+	i := sF
+	sprite v0 v1 5
+	v0 += 5
+	
+	v1 += 2
+	
+	i := x
+	sprite v0 v1 3
+	
+	# is v3 unchanged
+	
+	i := c
+	if v3 == 2 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	i := x
+	sprite v0 v1 3
+	
+	# is vF the correct value
+	
+	i := c
+	if v4 == 0 then sprite v0 v1 3
+	
+	v2 := 3
+	v3 := 3
+	v2 >>= v3
+	
+	v4 := vF
+	
+	i := c
+	if v4 != 1 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	# can vF be used as vY
+	
+	i := x
+	sprite v0 v1 3
+	
+	v2 := 4
+	vF := 2
+	
+	v2 >>= vF
+	
+	v3 := vF
+	
+	i := c
+	if v2 == 1 then sprite v0 v1 3
+	i := x--
+	if v2 == 2 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	# can vF be used as vX
+	
+	i := x
+	sprite v0 v1 3
+	
+	vF := 2
+	v2 := 2
+	
+	vF >>= v2
+	
+	v3 := vF
+	
+	i := c
+	if v3 == 0 then sprite v0 v1 3
+	
+	v0 := key
+	
+	clear
+	
+	v0 := 1
+	v1 := 1
+	
+	i := sM
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sA
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sT
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sH
+	sprite v0 v1 5
+	v0 += 8
+	
+	i := sP
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sA
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sT
+	sprite v0 v1 5
+	v0 += 8
+	
+	i := s3
+	sprite v0 v1 5
+	
+	# 8xyE test
+	
+	v0 := 1
+	v1 := 8
+	
+	i := s8
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sE
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	i := x
+	sprite v0 v1 3
+	
+	# is v3 shifted left by one and put into v2
+	
+	v2 := 0
+	v3 := 1
+	vF := 255
+	
+	v2 <<= v3
+	
+	v4 := vF
+	
+	i := c
+	if v2 == 2 then sprite v0 v1 3
+	
+	v0 += 6
+	
+	v1 := 8
+	
+	i := sQ
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sK
+	sprite v0 v1 5
+	v0 += 5
+	
+	v1 += 2
+	
+	i := x-
+	sprite v0 v1 3
+	
+	# quirk check
+	if v2 == 0 begin
+		i := c-
+		sprite v0 v1 3
+	
+		v2 := 1
+		v3 := 1
+		v2 <<= v3
+		
+		v4 := vF
+		
+		v0 += 237
+		
+		i := c
+		if v2 == 2 then sprite v0 v1 3
+		
+		v0 += 19
+	end
+	
+	v0 += 6
+	
+	v1 := 8
+	
+	i := sF
+	sprite v0 v1 5
+	v0 += 5
+	
+	v1 += 2
+	
+	i := x
+	sprite v0 v1 3
+	
+	# is v3 unchanged
+	
+	i := c
+	if v3 == 1 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	i := x
+	sprite v0 v1 3
+	
+	# is vF the correct value
+	
+	i := c
+	if v4 == 0 then sprite v0 v1 3
+	
+	v2 := 128
+	v3 := 128
+	v2 <<= v3
+	
+	v4 := vF
+	
+	i := c
+	if v4 != 1 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	# can vF be used as vY
+	
+	i := x
+	sprite v0 v1 3
+	
+	v2 := 1
+	vF := 4
+	
+	v2 <<= vF
+	
+	v3 := vF
+	
+	i := c
+	if v2 == 8 then sprite v0 v1 3
+	i := x--
+	if v2 == 2 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	# can vF be used as vX
+	
+	i := x
+	sprite v0 v1 3
+	
+	vF := 1
+	v2 := 1
+	
+	vF <<= v2
+	
+	v3 := vF
+	
+	i := c
+	if v3 == 0 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	# vX overflows properly
+	i := x
+	sprite v0 v1 3
+	
+	v2 := 128
+	v3 := 128
+	
+	v2 <<= v3
+	
+	i := c
+	if v2 == 0 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	# making sure no sneaky stuff is going on >:)
+	i := x
+	sprite v0 v1 3
+
+	v2 := 128
+
+	v2 <<= v2
+	v2 >>= v2
+	
+	i := c
+	if v2 == 0 then sprite v0 v1 3
+	
+	# 8xy7 test
+	
+	v0 := 1
+	v1 += 4
+	
+	i := s8
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s7
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	i := x
+	sprite v0 v1 3
+	
+	# does the proper function
+	
+	v2 := 1
+	v3 := 1
+	
+	vF := 255
+	
+	v3 =- v2
+	
+	v2 := vF
+	
+	i := c
+	if v3 == 0 then sprite v0 v1 3
+	
+	v0 += 8
+	
+	v1 := 14
+	
+	i := sF
+	sprite v0 v1 5
+	v0 += 5
+	
+	v1 += 2
+	
+	# vF is set to proper value
+	
+	i := x
+	sprite v0 v1 3
+	i := c
+	if v2 == 1 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	i := x
+	sprite v0 v1 3
+	
+	# does underflow correctly
+	
+	v2 := 0
+	v3 := 1
+	
+	vF := 255
+	v3 =- v2
+	
+	v2 := 0
+	
+	v2 := vF
+	
+	i := c
+	if v3 == 255 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	# vF is set to the proper value
+	
+	i := x
+	sprite v0 v1 3
+	i := c
+	if v2 == 0 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	i := x
+	sprite v0 v1 3
+	
+	# use vF as vX, no underflow
+	
+	vF := 1
+	v3 := 1
+	
+	v3 =- vF
+	
+	i := c
+	if vF == 1 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	i := x
+	sprite v0 v1 3
+	
+	# use vF as vX, has underflow
+	
+	vF := 0
+	v3 := 1
+	
+	v3 =- vF
+	
+	i := c
+	if vF == 0 then sprite v0 v1 3
+	
+	v0 := key
+	
+	clear
+	
+	v0 := 1
+	v1 := 1
+	
+	i := sM
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sE
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sM
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sO
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sY
+	sprite v0 v1 5
+	v0 += 4
+	
+	v0 := 1
+	v1 += 6
+	
+	# FX55/65 test
+	
+	i := sF
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s5
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s5
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s/
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s6
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s5
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	i := 0xFFF
+	v2 := v0
+	
+	v0 := 0xFF
+	
+	save v0
+	
+	v0 := 0
+	
+	i := 0xFFF
+	
+	load v0
+	
+	v3 := v0
+	
+	v0 := v2
+	
+	i := x
+	sprite v0 v1 3
+	
+	i := c
+	if v3 == 255 then sprite v0 v1 3
+	
+	v0 += 8
+	
+	v1 := 7
+	
+	i := sQ
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sR
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sK
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	i := x-
+	sprite v0 v1 3
+	
+	v2 := v0
+	v3 := v1
+	
+	i := 0xFFE
+	
+	v0 := 0
+	save v0
+	
+	i := 0xFFF
+	
+	v0 := 0
+	save v0
+	
+	i := 0xFFE
+	
+	v0 := 1
+	save v0
+	
+	v0 := 2
+	save v0
+	
+	v0 := 0
+	
+	i := 0xFFE
+	
+	load v1
+	
+	v4 := v0
+	v5 := v1
+	
+	v0 := v2
+	v1 := v3
+	
+	i := c-
+	
+	if v5 == 2 then sprite v0 v1 3
+	
+	v0 += 4
+	
+	i := x-
+	sprite v0 v1 3
+	
+	v2 := v0
+	v3 := v1
+	
+	i := 0xFFE
+	
+	v0 := 10
+	v1 := 20
+	
+	save v1
+	
+	v0 := 0
+	v1 := 0
+	
+	i := 0xFFE
+	
+	load v0
+	
+	v1 := v0
+	
+	load v0
+	
+	v4 := v0
+	v5 := v1
+	
+	v0 := v2
+	v1 := v3
+	
+	i := c-
+	
+	if v4 != v5 then sprite v0 v1 3
+	
+	# FX1E test
+	
+	v0 := 1
+	v1 += 4
+	
+	i := sF
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := s1
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sE
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	v2 := 3
+	i := x
+	
+	sprite v0 v1 3
+	
+	vF := 255
+
+	i += v2
+	
+	v3 := vF
+	
+	sprite v0 v1 3
+	
+	v0 += 4
+	
+	i := x
+	sprite v0 v1 3
+	i := c
+	if v3 == 255 then sprite v0 v1 3
+	
+	v0 := 1
+	v1 += 4
+	
+	i := sO
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sO
+	sprite v0 v1 5
+	v0 += 4
+	
+	i := sB
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	i := x
+	sprite v0 v1 3
+	
+	i := 0xFFF
+	
+	v2 := 1
+	
+	i += v2
+	
+	v2 := 255
+	
+	i += v2
+	i += v2
+	
+	v2 := 2
+	
+	i += v2
+	
+	v2 := v0
+	
+	load v0
+	
+	v3 := v0
+	v0 := v2
+	
+	if v3 == 0x12 begin
+		i := 0xFFF
+		v2 := v0
+		v3 := v1
+		
+		v0 := 15
+		v1 := 20
+		
+		save v1
+		
+		i := 0xFFF
+		
+		v0 := 0
+		v1 := 0
+		
+		load v1
+		
+		v0 := v2
+		v1 := v3
+	else
+		i := 0xFFF
+		v4 := v0
+		v5 := v1
+		
+		v3 := 0
+		v2 := 255
+		
+		loop
+			i += v2
+			v3 += 1
+		if v3 != 240 then again
+		v2 := 0xF0
+		i += v2
+		
+		v0 := 15
+		v1 := 20
+		
+		save v1
+		
+		i := 0xFFF
+		
+		v0 := 0
+		v1 := 0
+		
+		v3 := 0
+		v2 := 255
+		
+		loop
+			i += v2
+			v3 += 1
+		if v3 != 240 then again
+		v2 := 0xF0
+		i += v2
+		
+		load v1
+		
+		v0 := v4
+		v1 := v5
+	end
+	
+	i := c
+	sprite v0 v1 3
+	
+	v2 := v0
+	v3 := v1
+	
+	i := 0xFFE
+	
+	v0 := 0
+	v1 := 0
+	
+	save v0
+	
+	v0 := v2
+	v1 := v3
+	
+	# vip test
+	
+	v0 := 1
+	v1 += 4
+	
+	i := sV
+	sprite v0 v1 5
+	v0 += 4
+
+	i := sI
+	sprite v0 v1 5
+	v0 += 4
+
+	i := sP
+	sprite v0 v1 5
+	v0 += 5
+	v1 += 2
+	
+	i := x-
+	sprite v0 v1 3
+	
+	v2 := v0
+	v3 := v1
+	
+	v0 := 0xFF
+	
+	i := 0xFFF
+	save v0
+	
+	v0 := 56
+	v1 := 31
+		
+	i := line
+	sprite v0 v1 1
+
+	if vF == 1 begin
+		v0 := v2
+		v1 := v3
+		
+		i := c-
+		sprite v0 v1 3
+	else	
+		sprite v0 v1 1
+		jump toend
+	end
+	
+	v0 := v2
+	v1 := v3
+	
+	i := 0xFFF
+	
+	v3 := 0
+	v2 := 255
+
+	loop
+		i += v2
+		v3 += 1
+	if v3 != 113 then again
+	
+	v2 := 0x82
+	
+	i += v2
+	
+	v2 := v0
+	v3 := v1
+	
+	load v0
+	
+	v1 := v0
+	v0 := 0xE
+	i := hex v0
+	
+	load v0
+	
+	if v0 != v1 begin
+		v0 := v2
+		v1 := v3
+		
+		i := c-
+		sprite v0 v1 3
+	end
+	
+	: toend
+	
+	v0 := key
+	
+	clear
+	
+	jump 0x200
+
+: bC
+0x7E 0xFF 0xC0 0xC0 0xC0 0xC0 0xFF 0x7E
+: bH
+0xC3 0xC3 0xC3 0xFF 0xFF 0xC3 0xC3 0xC3
+: bI
+0xFF 0xFF 0x18 0x18 0x18 0x18 0xFF 0xFF
+: bP
+0xFE 0xFF 0xC3 0xC3 0xFF 0xFE 0xC0 0xC0
+: b8
+0x7E 0xFF 0xC3 0xC3 0x7E 0xC3 0xFF 0x7E
+
+: s0
+0xE0 0xA0 0xA0 0xA0 0xE0
+: s1
+0x40 0xC0 0x40 0x40 0xE0
+: s2
+0xC0 0x20 0x40 0x80 0xE0
+: s3
+0xC0 0x20 0x40 0x20 0xC0
+: s4
+0xA0 0xA0 0xE0 0x20 0x20
+: s5
+0xE0 0x80 0xC0 0x20 0xC0
+: s6
+0x60 0x80 0xC0 0xA0 0xE0
+: s7
+0xE0 0x20 0x40 0x40 0x40
+: s8
+0xE0 0xA0 0xE0 0xA0 0xE0
+: s9
+0x60 0xA0 0xE0 0x20 0xC0
+
+: sA
+0x40 0xA0 0xE0 0xA0 0xA0
+: sB
+0xC0 0xA0 0xC0 0xA0 0xC0
+: sC
+0x60 0x80 0x80 0x80 0x60
+: sD
+0xC0 0xA0 0xA0 0xA0 0xC0
+: sE
+0xE0 0x80 0xE0 0x80 0xE0
+: sF
+0xE0 0x80 0xE0 0x80 0x80
+: sH
+0xA0 0xA0 0xE0 0xA0 0xA0
+: sI
+0xE0 0x40 0x40 0x40 0xE0
+: sJ
+0x20 0x20 0x20 0xA0 0x40
+: sK
+0xA0 0xA0 0xC0 0xA0 0xA0
+: sL
+0x80 0x80 0x80 0x80 0xE0
+: sM
+0xA0 0xE0 0xE0 0xA0 0xA0
+: sN
+0xC0 0xA0 0xA0 0xA0 0xA0
+: sO
+0x40 0xA0 0xA0 0xA0 0x40
+: sP
+0xC0 0xA0 0xC0 0x80 0x80
+: sQ
+0x40 0xA0 0xA0 0xA0 0x60
+: sR
+0xC0 0xA0 0xC0 0xA0 0xA0
+: sS
+0x60 0x80 0x40 0x20 0xC0
+: sT
+0xE0 0x40 0x40 0x40 0x40
+: sU
+0xA0 0xA0 0xA0 0xA0 0x60
+: sY
+0xA0 0xA0 0x40 0x40 0x40
+: sV
+0xA0 0xA0 0xA0 0xA0 0x40
+
+: ssV
+0x00 0x00 0xA0 0xA0 0x40
+
+: s-
+0x00 0x00 0xE0 0x00 0x00
+: s/
+0x00 0x20 0x40 0x80 0x00
+
+: x
+0xA0 0x40 0xA0
+: c
+0x00 0x80 0x20
+: x-
+0x00 0xE0 0x00
+: c-
+0xA0 0x20 0x80
+: x--
+0xA0 0xA0 0xA0
+
+: line
+0xFF
