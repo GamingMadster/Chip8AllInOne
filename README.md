@@ -1,6 +1,8 @@
 # Chip-8 All-In-One
 This repo homes the Chip-8 All-In-One test ROM.
 
+![Screenshot of the title page of the ROM captured in Octo.](Images/test_startup.png)
+
 ## Prerequisite
 ### Required Opcodes
 This ROM requires certain opcodes to allow general function of the tests. This includes:
