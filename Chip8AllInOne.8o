@@ -1,1949 +1,1400 @@
-: 2ncheck
-	v3 := 0
-	sprite v0 v1 3
-	return
-	jump after2ncheck
+# macros
+
+# macro for writing text
+:macro draw X sX Y sY I {
+	# X and Y is the position the text is on screen (with spaces)
+	# sX and sY are for positioning the text per pixel
+
+	# mX and mY are the precalculations for the position of the text on the screen
+	:calc mX { ( X * 4 ) + 1 + sX }
+	:calc mY { ( Y * 5 ) + 1 + sY }
 	
+	# set the index register to the proper font address indicated by "I"
+	i := I
+	
+	# set vD and vE to the precalculated positions
+	vd := mX
+	ve := mY
+	
+	# draw the letter
+	sprite vd ve 4
+}
+
+# macro for drawing more precisely
+:macro precise_draw X Y I N {
+	vd := X
+	ve := Y
+	i := I
+	
+	sprite vd ve N
+}
+
+# macro for writing text (universal I)
+:macro draw_i X sX Y sY {
+	# X and Y is the position the text is on screen (with spaces)
+	# sX and sY are for positioning the text per pixel
+
+	# mX and mY are the precalculations for the position of the text on the screen
+	:calc mX { ( X * 4 ) + 1 + sX }
+	:calc mY { ( Y * 5 ) + 1 + sY }
+	
+	# set vD and vE to the precalculated positions
+	vd := mX
+	ve := mY
+	
+	# draw the letter
+	sprite vd ve 4
+}
+
+# macro for writing text (unchanged Y)
+:macro draw_next X sX I {
+	:calc mX { ( X * 4 ) + 1 + sX }
+	
+	i := I
+	
+	vd := mX
+	
+	sprite vd ve 4
+}
+
+# macro for writing text (unchanged Y)
+:macro draw_down Y sY I {
+	:calc mY { ( Y * 5 ) + 1 + sY }
+	
+	i := I
+	
+	ve := mY
+	
+	sprite vd ve 4
+}
+
+:macro init_reg rA rB A B {
+	# set vf to 170 (in binary "10101010")
+	vf := 170
+	
+	# set rA and rB to values indicated by A and B
+	rA := A
+	rB := B
+}
+
+:macro ret_result rA rB {
+# set results from a test to rA, rB, and vf to top three UNUSED registers
+	va := rA
+	vb := rB
+	vc := vf
+}
+
+# vip test macro
+:macro fontcheck n {
+	load v0
+	if v0 != n then jump vip-fail
+}
+
+:macro 8xy4_macro rA rB A B {
+	# initialize registers
+	init_reg rA rB A B
+	
+	# perform test
+	rA += rB
+	
+	# return the result of the test
+	ret_result rA rB
+}
+
+:macro 8xy5_macro rA rB A B {
+	# initialize registers
+	init_reg rA rB A B
+	
+	# perform test
+	rA -= rB
+	
+	# return the result of the test
+	ret_result rA rB
+}
+
+:macro 8xy7_macro rA rB A B {
+	# initialize registers
+	init_reg rA rB A B
+	
+	# perform test
+	rA =- rB
+	
+	# return the result of the test
+	ret_result rA rB
+}
+
+:macro 8xy6_macro rA rB A B {
+	# initialize registers
+	init_reg rA rB A B
+	
+	# perform test
+	rA >>= rB
+	
+	# return the result of the test
+	ret_result rA rB
+}
+
+:macro 8xye_macro rA rB A B {
+	# initialize registers
+	init_reg rA rB A B
+	
+	# perform test
+	rA <<= rB
+	
+	# return the result of the test
+	ret_result rA rB
+}
 
 : main
-	v0 := 1
-	v1 := 1
-	
-	i := bC
-	sprite v0 v1 8
-	v0 += 9
-	
-	i := bH
-	sprite v0 v1 8
-	v0 += 9
-	
-	i := bI
-	sprite v0 v1 8
-	v0 += 9
-	
-	i := bP
-	sprite v0 v1 8
-	v0 += 9
-	
-	i := b8
-	sprite v0 v1 8
-	
-	v0 := 1
-	v1 := 10
-	
-	i := sA
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sL
-	sprite v0 v1 5
-	v0 += 4
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s-
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sI
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sN
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s-
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sO
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sN
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sE
-	sprite v0 v1 5
-	v0 += 4
-	
-	v0 := 1
-	v1 := 16
-	
-	i := sT
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sE
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sS
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sT
-	sprite v0 v1 5
-	v0 += 8
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sO
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sM
-	sprite v0 v1 5
-	
-	v0 := 56
-	v1 := 26
-	
-	i := ssV
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s3
-	sprite v0 v1 5
-	v0 += 4
+clear
 
-	v0 := key
-	
-	clear
-	
-	v0 := 1
-	v1 := 1
-	
-	i := sS
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sK
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sI
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sP
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sS
-	sprite v0 v1 5
-	
-	v0 := 1
-	v1 := 8
-	
-	i := s3
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sN
-	sprite v0 v1 5
-	
-	v0 := 1
-	v1 += 6
-	
-	i := s4
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sN
-	sprite v0 v1 5
-	
-	v0 := 1
-	v1 += 6
-	
-	i := s5
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s0
-	sprite v0 v1 5
-	
-	v0 := 1
-	v1 += 6
-	
-	i := s9
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s0
-	sprite v0 v1 5
-	
-	v0 := 10
-	v1 := 10
-	
-	v2 := 1
-	v3 := 1
-	
-	# 3xnn test
-	
-	i := x
-	sprite v0 v1 3
-	i := c
-	if v2 != 1 then jump after3n
-	sprite v0 v1 3
-	: after3n
-	v1 += 6
-	
-	# 4xnn test
-	
-	i := x
-	sprite v0 v1 3
-	i := c
-	if v2 == 0 then jump after4n
-	sprite v0 v1 3
-	: after4n
-	v1 += 6
-	
-	# 5xy0 test
-	
-	i := x
-	sprite v0 v1 3
-	i := c
-	if v2 != v3 then jump after50
-	sprite v0 v1 3
-	: after50
-	v1 += 6
-	
-	# 9xy0 test
-	
-	v3 := 0
-	
-	i := x
-	sprite v0 v1 3
-	i := c
-	if v2 == v3 then jump after90
-	sprite v0 v1 3
-	: after90
-	
-	v0 := key
-	
-	clear
-	
-	v0 := 1
-	v1 := 1
-	
-	i := sS
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sU
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sB
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sO
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sU
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sT
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sI
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sN
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sE
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sS
-	sprite v0 v1 5
-	
-	v0 := 1
-	v1 := 8
-	
-	i := s2
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sN
-	sprite v0 v1 5
-	v0 := 1
-	v1 += 6
-	
-	i := sE
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sE
-	sprite v0 v1 5
-	
-	v0 := 10
-	v1 := 10
-	
-	v2 := 0
-	
-	# 2nnn/00EE test
-	
-	i := x
-	sprite v0 v1 3
-	i := c
-	v3 := 1
-	:call 2ncheck
-	v2 := 1
-	: after2ncheck
-	v1 += 6
-	i := x
-	sprite v0 v1 3
-	i := c
-	if v2 == 1 then sprite v0 v1 3
-	if v3 == 1 begin
-		sprite v0 v1 3
-		v0 += 5
-		
-		v1 := 14
-		
-		i := sN
-		sprite v0 v1 5
-		v0 += 4
-		i := sO
-		sprite v0 v1 5
-		v0 += 8
-		i := s2
-		sprite v0 v1 5
-		v0 += 4
-		i := sN
-		sprite v0 v1 5
-	end
-	
-	v0 := key
-	
-	clear
-	
-	v0 := 1
-	v1 := 1
-	
-	i := sM
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sA
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sT
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sH
-	sprite v0 v1 5
-	v0 += 8
-	
-	i := sP
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sA
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sT
-	sprite v0 v1 5
-	v0 += 8
-	
-	i := s1
-	sprite v0 v1 5
-	
-	v0 := 1
-	v1 := 8
-	
-	# 7xnn test
-	
-	i := s7
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sN
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
-	
-	i := x
-	sprite v0 v1 3
-	v2 := 0
-	v2 += 1
-	i := c
-	if v2 == 1 then sprite v0 v1 3
-	v0 += 4
-	
-	i := x
-	sprite v0 v1 3
-	v2 := 255
-	v2 += 1
-	i := c
-	if v2 == 0 then sprite v0 v1 3
-	
-	# 8xy0 test
-	
-	v0 := 1
-	v1 += 4
-	
-	i := s8
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s0
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
-	
-	i := x
-	sprite v0 v1 3
-	v2 := 0
-	v3 := 1
-	v2 := v3
-	i := c
-	if v2 == v3 then sprite v0 v1 3
-	
-	# 8xy1 test
-	
-	v0 := 1
-	v1 += 4
-	
-	i := s8
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s1
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
-	
-	i := x
-	sprite v0 v1 3
-	
-	v2 := 0
-	v3 := 1
-	vF := 1
-	
-	v2 |= v3
-	
-	v3 := 1
-	v3 := vF
-	
-	i := c
-	if v2 == 1 then sprite v0 v1 3
-	
-	# quirk test
-	
-	v0 += 8
-	
-	v1 := 20
-	
-	i := sQ
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sK
-	sprite v0 v1 5
-	v0 += 5
-	
-	v1 += 2
-	
-	i := x-
-	sprite v0 v1 3
-	
-	i := c-
-	if v3 == 0 then sprite v0 v1 3
-	
-	# order test
-	
-	v0 += 8
-	
-	v1 := 20
-	
-	i := sO
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sD
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 5
-	
-	v1 += 2
-	
-	i := x-
-	if v3 != 0 then sprite v0 v1 3
-	
-	if v3 == 0 begin
-		i := x
-		sprite v0 v1 3
-		
-		v2 := 255
-		
-		vF := 0
-		vF |= v2
-		
-		i := c
-		if vF == 0 then sprite v0 v1 3
-	end
-	
-	# 8xy2 test
-	
-	v0 := 1
-	v1 += 4
-	
-	i := s8
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s2
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
-	
-	i := x
-	sprite v0 v1 3
-	
-	v2 := 255
-	v3 := 0
-	vF := 1
-	
-	v2 &= v3
-	
-	v3 := 1
-	v3 := vF
-	
-	i := c
-	if v2 == 0 then sprite v0 v1 3
-	
-	# quirk test
-	
-	v0 += 8
-	
-	v1 := 26
-	
-	i := sQ
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sK
-	sprite v0 v1 5
-	v0 += 5
-	
-	v1 += 2
-	
-	i := x-
-	sprite v0 v1 3
-	
-	i := c-
-	if v3 == 0 then sprite v0 v1 3
-	
-	# order test
-	
-	v0 += 8
-	
-	v1 := 26
-	
-	i := sO
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sD
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 5
-	
-	v1 += 2
-	
-	i := x-
-	if v3 != 0 then sprite v0 v1 3
-	
-	if v3 == 0 begin
-		i := x
-		sprite v0 v1 3
-		
-		v2 := 255
-		
-		vF := 255
-		vF &= v2
-		
-		i := c
-		if vF == 0 then sprite v0 v1 3
-	end
-	
-	v0 := key
-	
-	clear
-	
-	v0 := 1
-	v1 := 1
-	
-	i := sM
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sA
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sT
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sH
-	sprite v0 v1 5
-	v0 += 8
-	
-	i := sP
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sA
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sT
-	sprite v0 v1 5
-	v0 += 8
-	
-	i := s2
-	sprite v0 v1 5
-	
-	# 8xy3 test
-	
-	v0 := 1
-	v1 := 8
-	
-	i := s8
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s3
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
-	
-	i := x
-	sprite v0 v1 3
-	
-	v2 := 0
-	v3 := 255
-	vF := 1
-	
-	v2 ^= v3
-	
-	v3 := 1
-	v3 := vF
-	
-	i := c
-	if v2 == 255 then sprite v0 v1 3
-	
-	# quirk test
-	
-	v0 += 8
-	
-	v1 := 8
-	
-	i := sQ
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sK
-	sprite v0 v1 5
-	v0 += 5
-	
-	v1 += 2
-	
-	i := x-
-	sprite v0 v1 3
-	
-	i := c-
-	if v3 == 0 then sprite v0 v1 3
-	
-	# order test
-	
-	v0 += 8
-	
-	v1 := 8
-	
-	i := sO
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sD
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 5
-	
-	v1 += 2
-	
-	i := x-
-	if v3 != 0 then sprite v0 v1 3
-	
-	if v3 == 0 begin
-		i := x
-		sprite v0 v1 3
-		
-		v2 := 0
-		
-		vF := 255
-		vF ^= v2
-		
-		i := c
-		if vF == 0 then sprite v0 v1 3
-	end
-	
-	# 8xy4 test
-	
-	v0 := 1
-	v1 += 4
-	
-	i := s8
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s4
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
-	
-	i := x
-	sprite v0 v1 3
-	
-	# does the proper function
-	
-	v2 := 0
-	v3 := 1
-	
-	vF := 255
-	
-	v2 += v3
-	
-	v3 := vF
-	
-	i := c
-	if v2 == 1 then sprite v0 v1 3
-	
-	v0 += 8
-	
-	v1 := 14
-	
-	i := sF
-	sprite v0 v1 5
-	v0 += 5
-	
-	v1 += 2
-	
-	# vF is set to proper value
-	
-	i := x
-	sprite v0 v1 3
-	i := c
-	if v3 == 0 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	i := x
-	sprite v0 v1 3
-	
-	# does overflow correctly
-	
-	v2 := 1
-	v3 := 255
-	
-	vF := 255
-	v2 += v3
-	
-	v3 := 0
-	
-	v3 := vF
-	
-	i := c
-	if v2 == 0 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	# vF is set to the proper value
-	
-	i := x
-	sprite v0 v1 3
-	i := c
-	if v3 == 1 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	i := x
-	sprite v0 v1 3
-	
-	# use vF as vX, no overflow
-	
-	vF := 0
-	v3 := 1
-	
-	vF += v3
-	
-	i := c
-	if vF == 0 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	i := x
-	sprite v0 v1 3
-	
-	# use vF as vX, has overflow
-	
-	vF := 1
-	v3 := 255
-	
-	vF += v3
-	
-	i := c
-	if vF == 1 then sprite v0 v1 3
-	
-	# 8xy5 test
-	
-	v0 := 1
-	v1 += 4
-	
-	i := s8
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s5
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
-	
-	i := x
-	sprite v0 v1 3
-	
-	# does the proper function
-	
-	v2 := 1
-	v3 := 1
-	
-	vF := 255
-	
-	v2 -= v3
-	
-	v3 := vF
-	
-	i := c
-	if v2 == 0 then sprite v0 v1 3
-	
-	v0 += 8
-	
-	v1 := 20
-	
-	i := sF
-	sprite v0 v1 5
-	v0 += 5
-	
-	v1 += 2
-	
-	# vF is set to proper value
-	
-	i := x
-	sprite v0 v1 3
-	i := c
-	if v3 == 1 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	i := x
-	sprite v0 v1 3
-	
-	# does underflow correctly
-	
-	v2 := 0
-	v3 := 1
-	
-	vF := 255
-	v2 -= v3
-	
-	v3 := 0
-	
-	v3 := vF
-	
-	i := c
-	if v2 == 255 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	# vF is set to the proper value
-	
-	i := x
-	sprite v0 v1 3
-	i := c
-	if v3 == 0 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	i := x
-	sprite v0 v1 3
-	
-	# use vF as vX, no underflow
-	
-	vF := 1
-	v3 := 1
-	
-	vF -= v3
-	
-	i := c
-	if vF == 1 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	i := x
-	sprite v0 v1 3
-	
-	# use vF as vX, has underflow
-	
-	vF := 0
-	v3 := 1
-	
-	vF -= v3
-	
-	i := c
-	if vF == 0 then sprite v0 v1 3
-	
-	v0 := 1
-	v1 += 4
-	
-	# 8xy6 test
-	
-	i := s8
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s6
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
-	
-	i := x
-	sprite v0 v1 3
-	
-	# is v3 shifted right by one and put into v2
-	
-	v2 := 0
-	v3 := 2
-	vF := 255
-	
-	v2 >>= v3
-	
-	v4 := vF
-	
-	i := c
-	if v2 == 1 then sprite v0 v1 3
-	
-	v0 += 8
-	
-	v1 := 26
-	
-	i := sQ
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sK
-	sprite v0 v1 5
-	v0 += 5
-	
-	v1 += 2
-	
-	i := x-
-	sprite v0 v1 3
-	
-	# quirk check
-	if v2 == 0 begin
-		i := c-
-		sprite v0 v1 3
-	
-		v2 := 2
-		v3 := 2
-		v2 >>= v3
-		
-		v4 := vF
-		
-		v0 += 235
-		
-		i := c
-		if v2 == 1 then sprite v0 v1 3
-		
-		v0 += 21
-	end
-	
-	v0 += 8
-	
-	v1 := 26
-	
-	i := sF
-	sprite v0 v1 5
-	v0 += 5
-	
-	v1 += 2
-	
-	i := x
-	sprite v0 v1 3
-	
-	# is v3 unchanged
-	
-	i := c
-	if v3 == 2 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	i := x
-	sprite v0 v1 3
-	
-	# is vF the correct value
-	
-	i := c
-	if v4 == 0 then sprite v0 v1 3
-	
-	v2 := 3
-	v3 := 3
-	v2 >>= v3
-	
-	v4 := vF
-	
-	i := c
-	if v4 != 1 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	# can vF be used as vY
-	
-	i := x
-	sprite v0 v1 3
-	
-	v2 := 4
-	vF := 2
-	
-	v2 >>= vF
-	
-	v3 := vF
-	
-	i := c
-	if v2 == 1 then sprite v0 v1 3
-	i := x--
-	if v2 == 2 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	# can vF be used as vX
-	
-	i := x
-	sprite v0 v1 3
-	
-	vF := 2
-	v2 := 2
-	
-	vF >>= v2
-	
-	v3 := vF
-	
-	i := c
-	if v3 == 0 then sprite v0 v1 3
-	
-	v0 := key
-	
-	clear
-	
-	v0 := 1
-	v1 := 1
-	
-	i := sM
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sA
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sT
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sH
-	sprite v0 v1 5
-	v0 += 8
-	
-	i := sP
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sA
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sT
-	sprite v0 v1 5
-	v0 += 8
-	
-	i := s3
-	sprite v0 v1 5
-	
-	# 8xyE test
-	
-	v0 := 1
-	v1 := 8
-	
-	i := s8
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sE
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
-	
-	i := x
-	sprite v0 v1 3
-	
-	# is v3 shifted left by one and put into v2
-	
-	v2 := 0
-	v3 := 1
-	vF := 255
-	
-	v2 <<= v3
-	
-	v4 := vF
-	
-	i := c
-	if v2 == 2 then sprite v0 v1 3
-	
-	v0 += 6
-	
-	v1 := 8
-	
-	i := sQ
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sK
-	sprite v0 v1 5
-	v0 += 5
-	
-	v1 += 2
-	
-	i := x-
-	sprite v0 v1 3
-	
-	# quirk check
-	if v2 == 0 begin
-		i := c-
-		sprite v0 v1 3
-	
-		v2 := 1
-		v3 := 1
-		v2 <<= v3
-		
-		v4 := vF
-		
-		v0 += 237
-		
-		i := c
-		if v2 == 2 then sprite v0 v1 3
-		
-		v0 += 19
-	end
-	
-	v0 += 6
-	
-	v1 := 8
-	
-	i := sF
-	sprite v0 v1 5
-	v0 += 5
-	
-	v1 += 2
-	
-	i := x
-	sprite v0 v1 3
-	
-	# is v3 unchanged
-	
-	i := c
-	if v3 == 1 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	i := x
-	sprite v0 v1 3
-	
-	# is vF the correct value
-	
-	i := c
-	if v4 == 0 then sprite v0 v1 3
-	
-	v2 := 128
-	v3 := 128
-	v2 <<= v3
-	
-	v4 := vF
-	
-	i := c
-	if v4 != 1 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	# can vF be used as vY
-	
-	i := x
-	sprite v0 v1 3
-	
-	v2 := 1
-	vF := 4
-	
-	v2 <<= vF
-	
-	v3 := vF
-	
-	i := c
-	if v2 == 8 then sprite v0 v1 3
-	i := x--
-	if v2 == 2 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	# can vF be used as vX
-	
-	i := x
-	sprite v0 v1 3
-	
-	vF := 1
-	v2 := 1
-	
-	vF <<= v2
-	
-	v3 := vF
-	
-	i := c
-	if v3 == 0 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	# vX overflows properly
-	i := x
-	sprite v0 v1 3
-	
-	v2 := 128
-	v3 := 128
-	
-	v2 <<= v3
-	
-	i := c
-	if v2 == 0 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	# making sure no sneaky stuff is going on >:)
-	i := x
-	sprite v0 v1 3
+# init
+draw 0 0 0 0 fC
+draw_next 1 0 fH
+draw_next 2 0 fI
+draw_next 3 0 fP
+draw_next 4 0 f8
 
-	v2 := 128
+draw 0 0 1 0 fA
+draw_next 1 0 fL
+draw_next 2 0 fL
+draw_next 3 0 f-
+draw_next 4 0 fI
+draw_next 5 0 fN
+draw_next 6 0 f-
+draw_next 7 0 fO
+draw_next 8 0 fN
+draw_next 9 0 fE
 
-	v2 <<= v2
-	v2 >>= v2
-	
-	i := c
-	if v2 == 0 then sprite v0 v1 3
-	
-	# 8xy7 test
-	
-	v0 := 1
-	v1 += 4
-	
-	i := s8
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s7
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
-	
-	i := x
-	sprite v0 v1 3
-	
-	# does the proper function
-	
-	v2 := 1
-	v3 := 1
-	
-	vF := 255
-	
-	v3 =- v2
-	
-	v2 := vF
-	
-	i := c
-	if v3 == 0 then sprite v0 v1 3
-	
-	v0 += 8
-	
-	v1 := 14
-	
-	i := sF
-	sprite v0 v1 5
-	v0 += 5
-	
-	v1 += 2
-	
-	# vF is set to proper value
-	
-	i := x
-	sprite v0 v1 3
-	i := c
-	if v2 == 1 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	i := x
-	sprite v0 v1 3
-	
-	# does underflow correctly
-	
-	v2 := 0
-	v3 := 1
-	
-	vF := 255
-	v3 =- v2
-	
-	v2 := 0
-	
-	v2 := vF
-	
-	i := c
-	if v3 == 255 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	# vF is set to the proper value
-	
-	i := x
-	sprite v0 v1 3
-	i := c
-	if v2 == 0 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	i := x
-	sprite v0 v1 3
-	
-	# use vF as vX, no underflow
-	
-	vF := 1
-	v3 := 1
-	
-	v3 =- vF
-	
-	i := c
-	if vF == 1 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	i := x
-	sprite v0 v1 3
-	
-	# use vF as vX, has underflow
-	
-	vF := 0
-	v3 := 1
-	
-	v3 =- vF
-	
-	i := c
-	if vF == 0 then sprite v0 v1 3
-	
-	v0 := key
-	
-	clear
-	
-	v0 := 1
-	v1 := 1
-	
-	i := sM
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sE
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sM
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sO
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sY
-	sprite v0 v1 5
-	v0 += 4
-	
-	v0 := 1
-	v1 += 6
-	
-	# FX55/65 test
-	
-	i := sF
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s5
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s5
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s/
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s6
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s5
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
-	
-	i := 0xFFF
-	v2 := v0
-	
-	v0 := 0xFF
-	
-	save v0
-	
-	v0 := 0
-	
-	i := 0xFFF
-	
-	load v0
-	
-	v3 := v0
-	
-	v0 := v2
-	
-	i := x
-	sprite v0 v1 3
-	
-	i := c
-	if v3 == 255 then sprite v0 v1 3
-	
-	v0 += 8
-	
-	v1 := 7
-	
-	i := sQ
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sR
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sK
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
-	
-	i := x-
-	sprite v0 v1 3
-	
-	v2 := v0
-	v3 := v1
-	
-	i := 0xFFE
-	
-	v0 := 0
-	save v0
-	
-	i := 0xFFF
-	
-	v0 := 0
-	save v0
-	
-	i := 0xFFE
-	
-	v0 := 1
-	save v0
-	
-	v0 := 2
-	save v0
-	
-	v0 := 0
-	
-	i := 0xFFE
-	
-	load v1
-	
-	v4 := v0
-	v5 := v1
-	
-	v0 := v2
-	v1 := v3
-	
-	i := c-
-	
-	if v5 == 2 then sprite v0 v1 3
-	
-	v0 += 4
-	
-	i := x-
-	sprite v0 v1 3
-	
-	v2 := v0
-	v3 := v1
-	
-	i := 0xFFE
-	
-	v0 := 10
-	v1 := 20
-	
-	save v1
-	
-	v0 := 0
-	v1 := 0
-	
-	i := 0xFFE
-	
-	load v0
-	
-	v1 := v0
-	
-	load v0
-	
-	v4 := v0
-	v5 := v1
-	
-	v0 := v2
-	v1 := v3
-	
-	i := c-
-	
-	if v4 != v5 then sprite v0 v1 3
-	
-	# FX1E test
-	
-	v0 := 1
-	v1 += 4
-	
-	i := sF
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := s1
-	sprite v0 v1 5
-	v0 += 4
-	
-	i := sE
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
-	
-	v2 := 3
-	i := x
-	
-	sprite v0 v1 3
-	
-	vF := 255
+# version
+draw 12 1 5 1 fV
+draw_next 13 1 f4
+draw_next 14 0 f.
+draw_next 15 -1 f0
 
-	i += v2
-	
-	v3 := vF
-	
-	sprite v0 v1 3
-	
-	v0 += 4
-	
-	i := x
-	sprite v0 v1 3
-	i := c
-	if v3 == 255 then sprite v0 v1 3
-	
+# "PRESS KEYPAD TO CONTINUE" text
+draw 0 0 4 1 fP
+draw_next 1 0 fR
+draw_next 2 0 fE
+draw_next 3 0 fS
+draw_next 4 0 fS
+
+draw 6 0 4 1 fK
+draw_next 7 0 fE
+draw_next 8 0 fY
+draw_next 9 0 fP
+draw_next 10 0 fA
+draw_next 11 0 fD
+
+draw 0 0 5 1 fT
+draw_next 1 0 fO
+
+draw 3 0 5 1 fC
+draw_next 4 0 fO
+draw_next 5 0 fN
+draw_next 6 0 fT
+draw_next 7 0 fI
+draw_next 8 0 fN
+draw_next 9 0 fU
+draw_next 10 0 fE
+
+# wait for key press and clear the screen
+v0 := key
+clear
+
+# conditionals testing, setup text
+draw 0 0 0 0 fC
+draw_next 1 0 fO
+draw_next 2 0 fN
+draw_next 3 0 fD
+draw_next 4 0 fI
+draw_next 5 0 fT
+draw_next 6 0 fI
+draw_next 7 0 fO
+draw_next 8 0 fN
+draw_next 9 0 fA
+draw_next 10 0 fL
+draw_next 11 0 fS
+
+draw 0 0 2 0 f3
+draw_next 1 0 fX
+draw_next 2 0 fNN
+
+draw 0 0 3 0 f4
+draw_next 1 0 fX
+draw_next 2 0 fNN
+
+draw 0 0 4 0 f5
+draw_next 1 0 fXY
+draw_next 3 0 f0
+
+draw 0 0 5 0 f9
+draw_next 1 0 fXY
+draw_next 3 0 f0
+
+# 3xnn test
+
+# initialize registers
+v0 := 0
+
+# checks for the case where the opcode always jumps, fail on code 1 if so.
+if v0 != 0 then jump 3xnn_fail_1
+
+# checks for if the opcode actually works.
+if v0 != 1 then jump 3xnn_pass
+
+# if this jump occurs, the opcode is unimplemented and will show as an "X."
+jump 3xnn_unim
+
+: 3xnn_pass
+i := fPASS
+jump 3xnn_comp
+
+: 3xnn_fail_1
+i := f1
+jump 3xnn_comp
+
+: 3xnn_unim
+i := f-
+
+: 3xnn_comp
+draw_i 4 1 2 0
+
+# 4xnn test
+
+# checks for the case where the opcode always jumps, fail on code 1 if so.
+if v0 == 1 then jump 4xnn_fail_1
+
+# checks for if the opcode actually works.
+if v0 == 0 then jump 4xnn_pass
+
+# if this jump occurs, the opcode is unimplemented and will show as an "X."
+jump 4xnn_unim
+
+: 4xnn_pass
+i := fPASS
+jump 4xnn_comp
+
+: 4xnn_fail_1
+i := f1
+jump 4xnn_comp
+
+: 4xnn_unim
+i := f-
+
+: 4xnn_comp
+draw_i 4 1 3 0
+
+# 5xy0 test
+
+# initialize registers
+v1 := 1
+
+# check for the case where the opcode always jumps, fail on code 1 if so.
+if v0 != v0 then jump 5xy0_fail_1
+
+# checks for if the opcode actually works.
+if v0 != v1 then jump 5xy0_pass
+
+# if this jump occurs, the opcode is unimplemented and will show as an "X."
+jump 5xy0_unim
+
+: 5xy0_pass
+i := fPASS
+jump 5xy0_comp
+
+: 5xy0_fail_1
+i := f1
+jump 5xy0_comp
+
+: 5xy0_unim
+i := f-
+
+: 5xy0_comp
+draw_i 4 1 4 0
+
+# 9xy0 test
+
+# check for the case where the opcode always jumps, fail on code 1 if so.
+if v0 == v1 then jump 9xy0_fail_1
+
+# checks for if the opcode actually works.
+if v0 == v0 then jump 9xy0_pass
+
+# if this jump occurs, the opcode is unimplemented and will show as an "X."
+jump 9xy0_unim
+
+: 9xy0_pass
+i := fPASS
+jump 9xy0_comp
+
+: 9xy0_fail_1
+i := f1
+jump 9xy0_comp
+
+: 9xy0_unim
+i := f-
+
+: 9xy0_comp
+draw_i 4 1 5 0
+
+# wait for key press and clear the screen
+v0 := key
+clear
+
+# subroutine testing, setup text
+draw 0 0 0 0 fS
+draw_next 1 0 fU
+draw_next 2 0 fB
+draw_next 3 0 fR
+draw_next 4 0 fO
+draw_next 5 0 fU
+draw_next 6 0 fT
+draw_next 7 0 fI
+draw_next 8 0 fN
+draw_next 9 0 fE
+draw_next 10 0 fS
+
+draw 0 0 2 0 f2
+draw_next 1 0 fN
+draw_next 2 0 fNN
+
+draw 0 0 3 0 f00
+draw_next 2 0 fEE
+
+# subroutines for 2nnn and 00EE are combined.
+
+# initialize registers
+v0 := 0
+
+# subroutine test
+
+# call subroutine (2nnn)
+:call sub_test
+
+# if v0 stays zero, assume that the call wasn't ran, and mark both opcodes as unimplemented
+if v0 == 0 begin
+	draw 4 1 2 0 f-
+	draw_down 3 0 f-
+	jump sub_comp
+end
+
+# if v0 is changed to one, then both opcodes are passing
+if v0 == 1 begin
+	draw 4 1 3 0 fPASS
+	jump sub_comp
+end
+
+: sub_test
 	v0 := 1
-	v1 += 4
+	draw 4 1 2 0 fPASS
+return
 	
-	i := sO
-	sprite v0 v1 5
-	v0 += 4
+# If the subroutine doesn't return, assume 00EE is not implemented.
+	draw 4 1 3 0 f-
 	
-	i := sO
-	sprite v0 v1 5
-	v0 += 4
+: sub_comp
+
+# wait for key press and clear the screen
+v0 := key
+clear
+
+# arithmetic testing, setup text
+draw 0 0 0 0 fA
+draw_next 1 0 fR
+draw_next 2 0 fI
+draw_next 3 0 fT
+draw_next 4 0 fH
+draw_next 5 0 fM
+draw_next 6 0 fE
+draw_next 7 0 fT
+draw_next 8 0 fI
+draw_next 9 0 fC
+
+draw_next 11 0 fP
+draw_next 12 0 fG
+draw_next 13 0 f.
+draw_next 14 0 f1
+
+draw 0 0 2 0 f7
+draw_next 1 0 fX
+draw_next 2 0 fNN
+
+draw 0 0 3 0 f8
+draw_next 1 0 fXY
+draw_next 3 0 f0
+
+draw 0 0 4 0 f8
+draw_next 1 0 fXY
+draw_next 3 0 f1
+
+draw 0 0 5 0 f8
+draw_next 1 0 fXY
+draw_next 3 0 f2
+
+draw 8 0 2 0 f8
+draw_next 9 0 fXY
+draw_next 11 0 f3
+
+draw 8 0 3 0 f8
+draw_next 9 0 fXY
+draw_next 11 0 f4
+
+draw 8 0 4 0 f8
+draw_next 9 0 fXY
+draw_next 11 0 f5
+
+draw 8 0 5 0 f8
+draw_next 9 0 fXY
+draw_next 11 0 f7
+
+# 7xnn test
+# initialize registers
+v0 := 0
+
+v0 += 1
+
+if v0 == 1 begin
+	i := fPASS
+else
+	i := f-
+end
+
+: 7xnn_comp
+draw_i 4 1 2 0
+
+# 8xy0 test
+# initialize registers
+v0 := 1
+v1 := 0
+
+v1 := v0
+
+# check if v1 got v0's value
+if v1 == 1 begin
+	# if v1 got v0's value then mark it as a pass
+	i := fPASS
+else
+	# this draw only occurs if v1 does not get v0's value (unimplemented.)
+	i := f-
+end
+
+: 8xy0_comp
+draw_i 4 1 3 0
+
+# 8xy1 test
+# initialize registers
+v0 := 170
+v1 := 0
+vf := 0xFF
+
+v1 |= v0
+
+vc := vf
+
+# check if v1 is v1 | v0
+if v1 == 170 begin
+	# if v1 is v1 | v0 then mark it as a pass
+	draw 4 1 4 0 fPASS
 	
-	i := sB
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
-	
-	i := x
-	sprite v0 v1 3
-	
-	i := 0xFFF
-	
-	v2 := 1
-	
-	i += v2
-	
-	v2 := 255
-	
-	i += v2
-	i += v2
-	
-	v2 := 2
-	
-	i += v2
-	
-	v2 := v0
-	
-	load v0
-	
-	v3 := v0
-	v0 := v2
-	
-	if v3 == 0x12 begin
-		i := 0xFFF
-		v2 := v0
-		v3 := v1
+	# check if the vf reset quirk is working as expected
+	if vc == 0 begin
+		# 8xy1 flag test
+		# initalize registers
+		v0 := 170
+		vf := 0
+
+		vf |= v0
 		
-		v0 := 15
-		v1 := 20
-		
-		save v1
-		
-		i := 0xFFF
-		
-		v0 := 0
-		v1 := 0
-		
-		load v1
-		
-		v0 := v2
-		v1 := v3
+		# if vf is zero, pass the flag test. Otherwise, error on code 2.
+		if vf == 0 begin
+			i := fPASS
+		else
+			i := f2
+		end
 	else
-		i := 0xFFF
-		v4 := v0
-		v5 := v1
-		
-		v3 := 0
-		v2 := 255
-		
-		loop
-			i += v2
-			v3 += 1
-		if v3 != 240 then again
-		v2 := 0xF0
-		i += v2
-		
+		if vc == 0xFF begin
+			# if vf is unchanged, the quirk is inactive/unimplemented, so skip the flag test
+			i := f-
+		else
+			# vf has been changed, but to a nonsensical value, error on code 1.
+			i := f1
+		end
+	end
+	
+	draw_i 5 1 4 0
+	
+	jump 8xy1_comp
+else
+	# this draw only occurs if v1 is not v1 | v0 (unimplemented.)
+	draw 4 1 4 0 f-
+	draw_next 5 1 f-
+end
+
+: 8xy1_comp
+
+# 8xy2 test
+# initialize registers
+v0 := 255
+v1 := 15
+vf := 0xFF
+
+v0 &= v1
+
+vc := vf
+
+# check if v1 is v1 & v0
+if v0 == 15 begin
+	# if v1 is v1 & v0 then mark it as a pass
+	draw 4 1 5 0 fPASS
+	
+	# check if the vf reset quirk is working as expected
+	if vc == 0 begin
+		# 8xy2 flag test
+		# initalize registers
 		v0 := 15
-		v1 := 20
+		vf := 255
+
+		vf &= v0
 		
-		save v1
-		
-		i := 0xFFF
-		
-		v0 := 0
-		v1 := 0
-		
-		v3 := 0
-		v2 := 255
-		
-		loop
-			i += v2
-			v3 += 1
-		if v3 != 240 then again
-		v2 := 0xF0
-		i += v2
-		
-		load v1
-		
-		v0 := v4
-		v1 := v5
+		# if vf is zero, pass the flag test. Otherwise, error on code 2.
+		if vf == 0 begin
+			i := fPASS
+		else
+			i := f2
+		end
+	else
+		if vc == 0xFF begin
+			# if vf is unchanged, the quirk is inactive/unimplemented, so skip the flag test
+			i := f-
+		else
+			# vf has been changed, but to a nonsensical value, error on code 1.
+			i := f1
+		end
 	end
 	
-	i := c
-	sprite v0 v1 3
+	draw_i 5 1 5 0
 	
-	v2 := v0
-	v3 := v1
-	
-	i := 0xFFE
-	
-	v0 := 0
-	v1 := 0
-	
-	save v0
-	
-	v0 := v2
-	v1 := v3
-	
-	# vip test
-	
-	v0 := 1
-	v1 += 4
-	
-	i := sV
-	sprite v0 v1 5
-	v0 += 4
+	jump 8xy2_comp
+else
+	# this draw only occurs if v1 is not v1 & v0 (unimplemented.)
+	draw 4 1 5 0 f-
+	draw_next 5 1 f-
+end
 
-	i := sI
-	sprite v0 v1 5
-	v0 += 4
+: 8xy2_comp
 
-	i := sP
-	sprite v0 v1 5
-	v0 += 5
-	v1 += 2
+# 8xy3 test
+# initialize registers
+v0 := 255
+v1 := 15
+vf := 0xFF
+
+v0 ^= v1
+
+vc := vf
+
+# check if v1 is v1 ^ v0
+if v0 == 0xF0 begin
+	# if v1 is v1 ^ v0 then mark it as a pass
+	draw 12 1 2 0 fPASS
 	
-	i := x-
-	sprite v0 v1 3
-	
-	v2 := v0
-	v3 := v1
-	
-	v0 := 0xFF
-	
-	i := 0xFFF
-	save v0
-	
-	v0 := 56
-	v1 := 31
+	# check if the vf reset quirk is working as expected
+	if vc == 0 begin
+		# 8xy3 flag test
+		# initalize registers
+		v0 := 15
+		vf := 255
+
+		vf ^= v0
 		
-	i := line
-	sprite v0 v1 1
-
-	if vF == 1 begin
-		v0 := v2
-		v1 := v3
-		
-		i := c-
-		sprite v0 v1 3
-	else	
-		sprite v0 v1 1
-		jump toend
+		# if vf is zero, pass the flag test. Otherwise, error on code 2.
+		if vf == 0 begin
+			i := fPASS
+		else
+			i := f2
+		end
+	else
+		if vc == 255 begin
+			# if vf is unchanged, the quirk is inactive/unimplemented, so skip the flag test
+			i := f-
+		else
+			# vf has been changed, but to a nonsensical value, error on code 1.
+			i := f1
+		end
 	end
 	
-	v0 := v2
-	v1 := v3
+	draw_i 13 1 2 0
 	
-	i := 0xFFF
-	
-	v3 := 0
-	v2 := 255
+	jump 8xy3_comp
+else
+	# this draw only occurs if v1 is not v1 ^ v0 (unimplemented.)
+	draw 12 1 2 0 f-
+	draw_next 13 1 f-
+end
 
-	loop
-		i += v2
-		v3 += 1
-	if v3 != 113 then again
-	
-	v2 := 0x82
-	
-	i += v2
-	
-	v2 := v0
-	v3 := v1
-	
-	load v0
-	
-	v1 := v0
-	v0 := 0xE
-	i := hex v0
-	
-	load v0
-	
-	if v0 != v1 begin
-		v0 := v2
-		v1 := v3
-		
-		i := c-
-		sprite v0 v1 3
+: 8xy3_comp
+
+# 8xy4 test
+# initialize registers
+8xy4_macro v0 v1 0 1
+
+if va == 1 begin
+	# general tests, make sure the opcode works & flags are set properly.
+	if vc == 0 begin
+		8xy4_macro v0 v1 1 255
+		if va == 0 begin
+			if vc == 1 begin
+				i := fPASS
+			else
+				i := f3
+			end
+		else
+			i := f1
+		end
+	else
+		i := f2
 	end
 	
-	: toend
+	draw_i 12 1 3 0
 	
-	v0 := key
+	# flag tests, make sure the flag can be used 
+	# vf = x tests
+	8xy4_macro vf v0 1 1
+	if vc == 0 begin
+		8xy4_macro vf v0 255 1
+		
+		if vc == 1 begin
+			i := fPASS
+		else
+			i := f2
+		end
+	else
+		i := f1
+	end
 	
-	clear
+	draw_i 13 1 3 0
 	
-	jump 0x200
+	# vf = y tests
+	8xy4_macro v0 vf 0 1
+	if va == 1 begin
+		8xy4_macro v0 vf 1 255
+		
+		if va == 0 begin
+			i := fPASS
+		else
+			i := f2
+		end
+	else
+		i := f1
+	end
+	
+	draw_i 14 1 3 0
+else
+	draw 12 1 3 0 f-
+	draw_next 13 1 f-
+end
 
-: bC
-0x7E 0xFF 0xC0 0xC0 0xC0 0xC0 0xFF 0x7E
-: bH
-0xC3 0xC3 0xC3 0xFF 0xFF 0xC3 0xC3 0xC3
-: bI
-0xFF 0xFF 0x18 0x18 0x18 0x18 0xFF 0xFF
-: bP
-0xFE 0xFF 0xC3 0xC3 0xFF 0xFE 0xC0 0xC0
-: b8
-0x7E 0xFF 0xC3 0xC3 0x7E 0xC3 0xFF 0x7E
+: 8xy4_comp
 
-: s0
-0xE0 0xA0 0xA0 0xA0 0xE0
-: s1
-0x40 0xC0 0x40 0x40 0xE0
-: s2
-0xC0 0x20 0x40 0x80 0xE0
-: s3
-0xC0 0x20 0x40 0x20 0xC0
-: s4
-0xA0 0xA0 0xE0 0x20 0x20
-: s5
-0xE0 0x80 0xC0 0x20 0xC0
-: s6
-0x60 0x80 0xC0 0xA0 0xE0
-: s7
-0xE0 0x20 0x40 0x40 0x40
-: s8
-0xE0 0xA0 0xE0 0xA0 0xE0
-: s9
-0x60 0xA0 0xE0 0x20 0xC0
+# 8xy5 test
+# initialize registers
+8xy5_macro v0 v1 1 1
 
-: sA
-0x40 0xA0 0xE0 0xA0 0xA0
-: sB
-0xC0 0xA0 0xC0 0xA0 0xC0
-: sC
-0x60 0x80 0x80 0x80 0x60
-: sD
-0xC0 0xA0 0xA0 0xA0 0xC0
-: sE
-0xE0 0x80 0xE0 0x80 0xE0
-: sF
-0xE0 0x80 0xE0 0x80 0x80
-: sH
-0xA0 0xA0 0xE0 0xA0 0xA0
-: sI
-0xE0 0x40 0x40 0x40 0xE0
-: sJ
-0x20 0x20 0x20 0xA0 0x40
-: sK
-0xA0 0xA0 0xC0 0xA0 0xA0
-: sL
-0x80 0x80 0x80 0x80 0xE0
-: sM
-0xA0 0xE0 0xE0 0xA0 0xA0
-: sN
-0xC0 0xA0 0xA0 0xA0 0xA0
-: sO
-0x40 0xA0 0xA0 0xA0 0x40
-: sP
-0xC0 0xA0 0xC0 0x80 0x80
-: sQ
-0x40 0xA0 0xA0 0xA0 0x60
-: sR
-0xC0 0xA0 0xC0 0xA0 0xA0
-: sS
-0x60 0x80 0x40 0x20 0xC0
-: sT
-0xE0 0x40 0x40 0x40 0x40
-: sU
-0xA0 0xA0 0xA0 0xA0 0x60
-: sY
-0xA0 0xA0 0x40 0x40 0x40
-: sV
-0xA0 0xA0 0xA0 0xA0 0x40
+if va == 0 begin
+	# general tests, make sure the opcode works & flags are set properly.
+	if vc == 1 begin
+		8xy5_macro v0 v1 0 1
+		if va == 255 begin
+			if vc == 0 begin
+				i := fPASS
+			else
+				i := f3
+			end
+		else
+			i := f1
+		end
+	else
+		i := f2
+	end
+	
+	draw_i 12 1 4 0
+	
+	# flag tests, make sure the flag can be used 
+	# vf = x tests
+	8xy5_macro vf v0 2 1
+	if vc == 1 begin
+		8xy5_macro vf v0 0 1
+		
+		if vc == 0 begin
+			i := fPASS
+		else
+			i := f1
+		end
+	else
+		i := f2
+	end
+	
+	draw_i 13 1 4 0
+	
+	# vf = y tests
+	8xy5_macro v0 vf 1 1
+	if va == 0 begin
+		8xy5_macro v0 vf 0 1
+		
+		if va == 255 begin
+			i := fPASS
+		else
+			i := f2
+		end
+	else
+		i := f1
+	end
+	
+	draw_i 14 1 4 0
+else
+	draw 12 1 4 0 f-
+	draw_next 13 1 f-
+end
 
-: ssV
-0x00 0x00 0xA0 0xA0 0x40
+: 8xy5_comp
 
-: s-
-0x00 0x00 0xE0 0x00 0x00
-: s/
-0x00 0x20 0x40 0x80 0x00
+# 8xy7 test
+# initialize registers
+8xy7_macro v0 v1 1 1
 
-: x
-0xA0 0x40 0xA0
-: c
-0x00 0x80 0x20
-: x-
-0x00 0xE0 0x00
-: c-
-0xA0 0x20 0x80
-: x--
-0xA0 0xA0 0xA0
+if va == 0 begin
+	# general tests, make sure the opcode works & flags are set properly.
+	if vc == 1 begin
+		8xy7_macro v0 v1 1 0
+		if va == 255 begin
+			if vc == 0 begin
+				i := fPASS
+			else
+				i := f3
+			end
+		else
+			i := f1
+		end
+	else
+		i := f2
+	end
+	
+	draw_i 12 1 5 0
+	
+	# flag tests, make sure the flag can be used 
+	# vf = x tests
+	8xy7_macro vf v0 1 2
+	if vc == 1 begin
+		8xy7_macro vf v0 1 0
+		
+		if vc == 0 begin
+			i := fPASS
+		else
+			i := f2
+		end
+	else
+		i := f1
+	end
+	
+	draw_i 13 1 5 0
+	
+	# vf = y tests
+	8xy7_macro v0 vf 1 1
+	if va == 0 begin
+		8xy7_macro v0 vf 1 0
+		
+		if va == 255 begin
+			i := fPASS
+		else
+			i := f2
+		end
+	else
+		i := f1
+	end
+	
+	draw_i 14 1 5 0
+else
+	draw 12 1 5 0 f-
+	draw_next 13 1 f-
+end
+
+: 8xy7_comp
+
+# wait for key press and clear the screen
+v0 := key
+clear
+
+# arithmetic testing, setup text
+draw 0 0 0 0 fA
+draw_next 1 0 fR
+draw_next 2 0 fI
+draw_next 3 0 fT
+draw_next 4 0 fH
+draw_next 5 0 fM
+draw_next 6 0 fE
+draw_next 7 0 fT
+draw_next 8 0 fI
+draw_next 9 0 fC
+
+draw_next 11 0 fP
+draw_next 12 0 fG
+draw_next 13 -1 f.
+draw_next 14 -2 f2
+
+draw 0 0 2 0 f8
+draw_next 1 0 fXY
+draw_next 3 0 f6
+
+draw 0 0 3 0 f8
+draw_next 1 0 fXY
+draw_next 3 0 fE
+
+# 8xy6 test
+8xy6_macro v0 v1 2 2
+
+# test if v0 was shifted right properly
+if va == 1 begin
+	# check if v1 is unchanged
+	if vb == 2 begin
+		# check if the flag is set properly
+		if vc == 0 begin
+			# do a check for if bits are being set into the flag register properly
+			8xy6_macro v0 v1 3 3
+			if vc == 1 begin
+				i := fPASS
+			else
+				i := f3
+			end
+		else
+			i := f2
+		end
+	else
+		i := f1
+	end
+	
+	draw_i 4 1 2 0
+	
+	# flag tests
+	# vf = x
+	8xy6_macro vf v0 3 3
+	if vc == 1 begin
+		8xy6_macro vf v0 2 2
+		if vc == 0 begin
+			i := fPASS
+		else
+			i := f2
+		end
+	else
+		i := f1
+	end
+	
+	draw_i 5 1 2 0
+	
+	# vf = y (ONLY TRIGGERS IF SHIFTING IS VX >>= VY)
+	8xy6_macro v0 vf 0 3
+	if va == 1 begin
+		if vc == 1 begin
+			8xy6_macro v0 vf 0 2
+			if vc == 0 begin
+				i := fPASS
+			else
+				i := f3
+			end
+		else
+			i := f2
+		end
+	else
+		# if the shifting quirk of vx >>= vx occurs, make sure that vf is still set to zero
+		if vc == 0 begin
+			i := f-
+		else
+			i := f1
+		end
+	end
+	
+	draw_i 6 1 2 0
+else
+	draw 4 1 2 0 f-
+	draw_next 5 1 f-
+	draw_next 6 1 f-
+end
+
+: 8xy6_comp
+
+# 8xye test
+8xye_macro v0 v1 1 1
+
+# test if v0 was shifted right properly
+if va == 2 begin
+	# check if v1 is unchanged
+	if vb == 1 begin
+		# check if the flag is set properly
+		if vc == 0 begin
+			# do a check for if bits are being set into the flag register properly
+			8xye_macro v0 v1 128 128
+			if vc == 1 begin
+				i := fPASS
+			else
+				i := f3
+			end
+		else
+			i := f2
+		end
+	else
+		i := f1
+	end
+	
+	draw_i 4 1 3 0
+	
+	# flag tests
+	# vf = x
+	8xye_macro vf v0 128 128
+	if vc == 1 begin
+		8xye_macro vf v0 1 1
+		if vc == 0 begin
+			i := fPASS
+		else
+			i := f2
+		end
+	else
+		i := f1
+	end
+	
+	draw_i 5 1 3 0
+	
+	# vf = y (ONLY TRIGGERS IF SHIFTING IS VX >>= VY)
+	8xye_macro v0 vf 1 128
+	if va == 0 begin
+		if vc == 1 begin
+			8xye_macro v0 vf 0 1
+			if vc == 0 begin
+				i := fPASS
+			else
+				i := f3
+			end
+		else
+			i := f2
+		end
+	else
+		# if the shifting quirk of vx >>= vx occurs, make sure that vf is still set to zero
+		if vc == 0 begin
+			i := f-
+		else
+			i := f1
+		end
+	end
+	
+	draw_i 6 1 3 0
+else
+	draw 4 1 3 0 f-
+	draw_next 5 1 f-
+	draw_next 6 1 f-
+end
+
+: 8xye_comp
+
+# wait for key press and clear the screen
+v0 := key
+clear
+
+# memory testing
+draw 0 0 0 0 fM
+draw_next 1 0 fE
+draw_next 2 0 fM
+draw_next 3 0 fO
+draw_next 4 0 fR
+draw_next 5 0 fY
+
+draw 0 0 2 0 fF
+draw_next 1 0 fX
+draw_next 2 0 f5
+draw_next 3 0 f5
+
+draw 0 0 3 0 fF
+draw_next 1 0 fX
+draw_next 2 0 f6
+draw_next 3 0 f5
+
+draw 0 0 4 0 fF
+draw_next 1 0 fX
+draw_next 2 0 f1
+draw_next 3 0 fE
+
+# fx55 & fx65 test
+i := 0xFFF
+v0 := 0xAA
+
+save v0
+
+i := 0xFFF
+v0 := 0x00
+
+load v0
+
+i := f1
+if v0 == 0xAA then i := fPASS
+if v0 == 0x00 then i := f-
+draw_i 4 1 2 0
+draw_i 4 1 3 0
+
+# fx1e test
+vf := 0xFF
+v0 := 1
+i := scratchpad
+
+i += v0
+
+load v0
+
+i := f1
+if v0 == 0x55 then i := fPASS
+if v0 == 0xAA then i := f-
+
+draw_i 4 1 4 0
+
+i := f1
+if vf != 0xFF then i := fPASS
+
+draw_i 5 1 4 0
+
+# wait for key press and clear the screen
+v0 := key
+clear
+
+# vip test (taken from side-project "vipchecker.8o".)
+draw 0 0 0 0 fO
+draw_next 1 0 fT
+draw_next 2 0 fH
+draw_next 3 0 fE
+draw_next 4 0 fR
+
+draw 0 0 2 0 fV
+draw_next 1 0 fI
+draw_next 2 0 fP
+
+# Test 1: ROM exists at $8000
+# This test is to check for if the Index register is a 16-bit value
+# and doesn't wrap around the 4kb memory area that a regular
+# interpreter would be able to see. (AKA, the VIP's addressing
+# space.)
+
+# This test also checks for if ROM exists at $8000. As such, a write
+# To the area should not affect $0000.
+
+# Set I to $FFF, and then increment I to $8000. If this is
+# done within a regular interpreter, the interpreter is understood 
+# to wrap the value back to zero every time I goes over $0FFF. If this is
+# done on the VIP, the I register should not wrap via $0FFF.
+
+i := 0x0fff
+v0 := 0xff
+v1 := 0x00
+
+loop
+	i += v0
+	v1 += 0x01
+if v1 != 0x70 then again
+
+v0 := 0x71
+i += v0
+
+# attempt to save the value $AA (or b10101010) at what is presumed
+# to be $1000. If the value is found at 0, then assume that this
+# rom is running on a normal high-level chip-8 interpreter, rather
+# than on a VIP running the chip-8 interpreter.
+v0 := 0xaa
+save v0
+
+i := 0x0000
+
+# set v0 to a known value that would not appear in the font (to 
+# prevent false positives & negatives)
+v0 := 0x55
+
+load v0
+
+# if the test fails, jump to the end automatically.
+if v0 == 0xaa then
+		jump vip-fail
+
+# Test 2: $F00 - $FFF is the framebuffer
+# This test is to check if the framebuffer is seperate from the
+# main memory that the CHIP-8 interpreter is able to "see"
+
+# In the case of the VIP, the framebuffer is contained from $F00
+# to $FFF.
+
+# Set I to $FFF and set register "v0" to $FF and save that to $FFF
+i := 0x0fff
+
+v0 := 0xff
+
+save v0
+
+precise_draw 0x38 0x1f line 1
+
+if vf == 0x00 begin
+	precise_draw 0x38 0x1f line 1
+	jump vip-fail
+end
+
+# Test 3: Font Graphics stored in the VIP's memory at $8110 - $8142
+# This checks for EVERY byte of the font being at $8110 to $8142 is
+# correct. If any byte is incorrect or doesn't exist, the test will
+# fail.
+
+# Increment I for a while to get I to $8110
+
+i := 0x0fff
+
+v0 := 0xff
+v1 := 0x00
+
+loop
+	i += v0
+	v1 += 0x01
+if v1 != 0x71 then again
+
+v0 := 0x82
+
+i += v0
+
+# The monotonous font check...
+
+fontcheck 0xf0
+fontcheck 0x80
+fontcheck 0xf0
+fontcheck 0x80
+fontcheck 0xf0
+fontcheck 0x80
+fontcheck 0x80
+fontcheck 0x80
+fontcheck 0xf0
+fontcheck 0x50
+fontcheck 0x70
+fontcheck 0x50
+fontcheck 0xf0
+fontcheck 0x50
+fontcheck 0x50
+fontcheck 0x50
+fontcheck 0xf0
+fontcheck 0x80
+fontcheck 0xf0
+fontcheck 0x10
+fontcheck 0xf0
+fontcheck 0x80
+fontcheck 0xf0
+fontcheck 0x90
+fontcheck 0xf0
+fontcheck 0x90
+fontcheck 0xf0
+fontcheck 0x10
+fontcheck 0xf0
+fontcheck 0x10
+fontcheck 0xf0
+fontcheck 0x90
+fontcheck 0xf0
+fontcheck 0x90
+fontcheck 0x90
+fontcheck 0x90
+fontcheck 0xf0
+fontcheck 0x10
+fontcheck 0x10
+fontcheck 0x10
+fontcheck 0x10
+fontcheck 0x60
+fontcheck 0x20
+fontcheck 0x20
+fontcheck 0x20
+fontcheck 0x70
+fontcheck 0xa0
+fontcheck 0xa0
+fontcheck 0xf0
+fontcheck 0x20
+fontcheck 0x20
+
+# Test 4: Display wait quirk parity
+# This checks for if the display wait quirk has parity with how
+# the VIP's display wait quirk functions.
+
+# Note: These timings were tested using EMMA 02 v1.47 at a
+# 1.7609 MHz clock speed.
+
+# PART A
+v2 := 0x77
+delay := v2
+
+i := vert-line
+
+v0 := 0x10
+v1 := 0x00
+
+# loop repeatedly for 119 frames
+loop
+	v2 := delay
+	sprite v0 v0 0x01
+	v1 += 0x01
+if v2 != 0x00 then again
+
+# if we dont get a count of 120, the test fails.
+if v1 != 0x78 then
+		jump vip-fail
+
+# PART B
+v2 := 0x76
+delay := v2
+
+v0 := 0x15
+v1 := 0x00
+
+# loop repeatedly for 118 frames
+loop
+	v2 := delay
+	sprite v0 v0 0x08
+	v1 += 0x01
+if v2 != 0x00 then again
+
+# if we dont get a count of 60, the test fails.
+if v1 != 0x3c then
+		jump vip-fail
+
+# PART C
+v2 := 0x77
+delay := v2
+
+v0 := 0x10
+v1 := 0x00
+
+# loop repeatedly for 119 frames
+loop
+	v2 := delay
+	sprite v0 v0 0x08
+	v1 += 0x01
+if v2 != 0x00 then again
+
+# if we dont get a count of 120, the test fails.
+if v1 != 0x78 then
+		jump vip-fail
+
+# if the test didn't jump to "fail", draw the pass symbol, and then
+# jump to the loop again at "testend"
+: vip-pass
+	draw 3 1 2 0 fPASS
+	jump vip-finish
+	
+: vip-fail
+	draw 3 1 2 0 f-
+	
+: vip-finish
+v0 := key
+clear
+
+jump 0x200
+
+# font
+# symbols
+: f.
+0x00 0x00 0x00 0x40
+: f-
+0x00 0xE0 0x00 0x00
+: fPASS
+0x00 0xA0 0xC0 0x80
+
+# numbers
+: f0
+0x40 0xA0 0xA0 0x40
+: f1
+0xC0 0x40 0x40 0xE0
+: f2
+0xC0 0x20 0xC0 0xE0
+: f3
+0xE0 0x20 0x60 0xE0
+: f4
+0xA0 0xA0 0xE0 0x20
+: f5
+0xE0 0x80 0x60 0xE0
+: f6
+0xE0 0x80 0xE0 0xE0
+: f7
+0xE0 0x20 0x40 0x40
+: f8
+0xE0 0xE0 0xA0 0xE0
+: f9
+0xE0 0xE0 0x20 0xC0
+
+# letters
+: fA
+0x40 0xA0 0xE0 0xA0
+: fB
+0xC0 0xA0 0xE0 0xE0
+: fC
+0x60 0x80 0x80 0x60
+: fD
+0xC0 0xA0 0xA0 0xC0
+: fE
+0xE0 0xC0 0x80 0xE0
+: fF
+0xE0 0xC0 0x80 0x80
+: fG
+0xE0 0x80 0xA0 0xE0
+: fH
+0xA0 0xE0 0xA0 0xA0
+: fI
+0xE0 0x40 0x40 0xE0
+: fJ
+0xE0 0x20 0x20 0xC0
+: fK
+0xA0 0xC0 0xA0 0xA0
+: fL
+0x80 0x80 0x80 0xE0
+: fM
+0xE0 0xE0 0xA0 0xA0
+: fN
+0xC0 0xA0 0xA0 0xA0
+: fO
+0xE0 0xA0 0xA0 0xE0
+: fP
+0xE0 0xE0 0x80 0x80
+: fR
+0xE0 0xA0 0xC0 0xA0
+: fS
+0xE0 0x80 0x20 0xE0
+: fT
+0xE0 0x40 0x40 0x40
+: fU
+0xA0 0xA0 0xA0 0xE0
+: fV
+0xA0 0xA0 0xA0 0x40
+: fX
+0xA0 0x40 0xA0 0xA0
+: fY
+0xA0 0xA0 0x40 0x40
+
+: fNN
+0xCC 0xAA 0xAA 0xAA
+
+: fXY
+0xAA 0x4A 0xA4 0xA4
+
+: f00
+0x44 0xAA 0xAA 0x44
+
+: fEE
+0xEE 0xCC 0x88 0xEE
 
 : line
 0xFF
+
+: vert-line
+0b10000000
+0b10000000
+0b10000000
+0b10000000
+0b10000000
+0b10000000
+0b10000000
+0b10000000
+
+: scratchpad
+0xAA 0x55
