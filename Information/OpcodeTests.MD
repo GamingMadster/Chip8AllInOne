@@ -21,14 +21,14 @@
 ![Screenshot of the conditionals page of the ROM captured in Octo.](../Images/arithmeticpg1.png)
 
 `7xnn` - Add the hex value `nn` to register `x`.   
-`8xy0` - Set register `x` to the value of register `y`.
+`8xy0` - Set register `x` to the value of register `y`.   
 `8xy1` - Bitwise OR register `x` and register `y` together. Put the resulting value into register `x` and reset register 15.   
 `8xy2` - Bitwise AND register `x` and register `y` together. Put the resulting value into register `x` and reset register 15.   
 `8xy3` - Bitwise XOR/EOR register `x` and register `y` together. Put the resulting value into register `x` and reset register 15.   
 
 ### Failure Codes
-`8xy1`, `8xy2`, `8xy3`:
-`1` - Opcode changes register 15 to a nonsensical value.
+`8xy1`, `8xy2`, `8xy3`:   
+`1` - Opcode changes register 15 to a nonsensical value.   
 `2` - Opcode resets register 15, and then stores the result into the same register.
 
 ## Arithmetic (Page 2)
