@@ -1,7 +1,7 @@
 # Opcode Test Documentation
 
 ## Conditionals
-![Screenshot of the conditionals page of the ROM captured in Octo.](Images/conditionals.png)
+![Screenshot of the conditionals page of the ROM captured in Octo.](../Images/conditionals.png)
 
 `3xnn` - If register `x` is equal to `nn`, skip the next opcode.
 `4xnn` - If register `x` is not equal to `nn`, skip the next opcode.
