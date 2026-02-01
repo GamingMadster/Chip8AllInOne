@@ -4,6 +4,8 @@ This repo homes the Chip-8 All-In-One test ROM.
 ![Screenshot of the title page of the ROM captured in Octo.](Images/test_startup.png)
 
 ## Prerequisite
+This ROM has been made to be run on STOCK Chip-8. While other variants of Chip-8 are recognized by the program through the usage of quirks, it is intended to debug stock Chip-8 interpreters.
+
 ### Required Opcodes
 This ROM requires certain opcodes to allow general function of the tests. This includes:
 - `1NNN`
@@ -12,14 +14,14 @@ This ROM requires certain opcodes to allow general function of the tests. This i
 - `DXYN`
 - `FX0A`
 
+## Opcode Tests
+For more information on the details of how each test works, and their error codes, visit the [Test Documentation](Information/OpcodeTests.MD).
+
 ### Test Definitions
 After running a test on an opcode, the test will return one of three possible outcomes.
 - A tick mark, "✔": Test Passed
 - A dash, "➖": Test Skipped
-- A Number: Test Failed; visit the [Failure Code Document](Information/OpcodeFailures.MD) for definitions on each failure code.
-
-## Opcode Tests
-For more information, visit the [Opcode Test Document](Information/OpcodeTests.MD).
+- A Number: Test Failed; different tests have a different number of error codes.
 
 ### Conditionals
 - `3XNN`
@@ -48,5 +50,4 @@ For more information, visit the [Opcode Test Document](Information/OpcodeTests.M
 - `FX65`
 
 ### Miscellaneous
-- Out of Bounds (OOB) Test
 - VIP Accuracy Test
