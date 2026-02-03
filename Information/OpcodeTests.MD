@@ -27,7 +27,7 @@
 `8xy2` - Bitwise AND register `x` and register `y` together. Put the resulting value into register `x` and reset register 15.   
 `8xy3` - Bitwise XOR/EOR register `x` and register `y` together. Put the resulting value into register `x` and reset register 15.   
 
-`8xy4` - Add the values of register `x` and register `y` together. Put the resulting value into register `x`. Set register 15 to 1 if register `x` goes over 255: 0 otherwise even if `x` equals 15. 
+`8xy4` - Add the values of register `x` and register `y` together. Put the resulting value into register `x`. Set register 15 to 1 if register `x` overflows over 255; otherwise, set the register to 0 even if `x` equals 15. 
 
 ### Failure Codes
 `8xy1`, `8xy2`, `8xy3`:   
