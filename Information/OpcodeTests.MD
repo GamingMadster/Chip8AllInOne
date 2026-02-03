@@ -35,8 +35,8 @@
 `2` - Opcode resets register 15, and then stores the result into the same register.
 
 `8xy4`:   
-`1` - Register 15 is not set to 0 on a non-overflow operation.
-`2` - Register 15 is not set to 1 on an overflow operation.
+`1` - Register 15 is not set to 0 on a non-overflow operation.   
+`2` - Register 15 is not set to 1 on an overflow operation.   
 `3` - Register `x` is not an unsigned 8-bit integer.   
 `4` - Register 15 is being overriden with the result of the operation as it is being used as register `x`. Use the order of `result -> flag` to fix this issue.   
 `5` - Register 15 is being set too early, and is corrupting the resulting value in register `x`.
