@@ -22,14 +22,24 @@
 
 `7xnn` - Add the hex value `nn` to register `x`.   
 `8xy0` - Set register `x` to the value of register `y`.   
+
 `8xy1` - Bitwise OR register `x` and register `y` together. Put the resulting value into register `x` and reset register 15.   
 `8xy2` - Bitwise AND register `x` and register `y` together. Put the resulting value into register `x` and reset register 15.   
 `8xy3` - Bitwise XOR/EOR register `x` and register `y` together. Put the resulting value into register `x` and reset register 15.   
+
+`8xy4` - Add the values of register `x` and register `y` together. Put the resulting value into register `x`. Set register 15 to 1 if register `x` goes over 255: 0 otherwise even if `x` equals 15. 
 
 ### Failure Codes
 `8xy1`, `8xy2`, `8xy3`:   
 `1` - Opcode changes register 15 to a nonsensical value.   
 `2` - Opcode resets register 15, and then stores the result into the same register.
+
+`8xy4`:   
+`1` - Register 15 is not set to 0 on a non-overflow operation.
+`2` - Register 15 is not set to 1 on an overflow operation.
+`3` - Register `x` is not an unsigned 8-bit integer.   
+`4` - Register 15 is being overriden with the result of the operation as it is being used as register `x`. Use the order of `result -> flag` to fix this issue.   
+`5` - Register 15 is being set too early, and is corrupting the resulting value in register `x`.
 
 ## Arithmetic (Page 2)
 ![Screenshot of the conditionals page of the ROM captured in Octo.](../Images/arithmeticpg2.png)
